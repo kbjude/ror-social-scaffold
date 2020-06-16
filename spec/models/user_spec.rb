@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe User, type: :model do
+RSpec.describe User, type: :feature do
   context 'Login attemps' do
     it 'returns login form when no user is logged in' do
       visit new_user_session_path
@@ -8,7 +8,7 @@ RSpec.describe User, type: :model do
     end
 
     it 'User is redirected to the index page' do
-      visit root_path
+      visit posts_path
       expect(page).to have_content('Recent posts')
     end
   end
