@@ -3,7 +3,7 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all
-    @created_user = User.where(user_id => 18)
+    @created_user = User.created_user
   end
 
   def show
