@@ -9,8 +9,8 @@ RSpec.describe User, type: :feature do
 
     it 'User is redirected to the index page' do
       visit 'users/new'
-      fill_in 'user_email', :with => "user.email"
-      fill_in 'user_password', :with => "user.jude"
+      fill_in 'user_email', with: 'user.email'
+      fill_in 'user_password', with: 'user.jude'
       click_button 'Log in'
       expect(page).to have_content('Stay in touch')
     end
