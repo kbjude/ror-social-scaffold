@@ -3,7 +3,7 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all
-    @created_user = User.created_user
+    @created_users = User.created_users
   end
 
   def show

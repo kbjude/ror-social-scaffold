@@ -36,7 +36,7 @@ class User < ApplicationRecord
     friends.include?(user)
   end
 
-  def self.created_user
+  def self.created_users
     where(:email != " ")
   end
 end
