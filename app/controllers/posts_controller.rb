@@ -1,9 +1,12 @@
 class PostsController < ApplicationController
+  before_action :set_post, only: [:show]
   before_action :authenticate_user!
+  before_action :authenticate_user!, only: [:show, :index]
 
   def index
-    @post = Post.new
-    timeline_posts
+      @post = Post.new
+      timeline_posts
+      @creator = creator(timeline_posts)
   end
 
   def create
@@ -19,8 +22,17 @@ class PostsController < ApplicationController
 
   private
 
+  def set_post
+    @post = Post.find(params[:id])
+  end
+
   def timeline_posts
-    @timeline_posts ||= Post.all.ordered_by_most_recent.includes(:user)
+    if current_user
+      @timeline_posts ||= if 
+      Post.all.ordered_by_most_recent.includes(:user)
+    else
+      redirect_to index
+    end
   end
 
   def post_params
