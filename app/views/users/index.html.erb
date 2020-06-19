@@ -4,8 +4,10 @@
       <li>
         Name: <%= user.name %>
         <span class="profile-link">
-          <%= link_to 'See Profile',  user_path(user), class: 'profile-link' %>
+          <%= link_to 'See Profile',  user_path(user), class: 'profile-link' %> |
         </span>
+       
+        <%= like_or_dislike_btn(user) %>
       </li>
     <% end %>
   </ul>
