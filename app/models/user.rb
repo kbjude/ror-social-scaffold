@@ -11,6 +11,12 @@ class User < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :friendships
   has_many :inverse_friendships, class_name: 'Friendship', foreign_key: 'friend_id'
+  has_many :inverted_friendships, -> { where confirmed: false },  class_name: 'Friendship', foreign_key: 'friend_id', dependent: :destroy
+  has_many :friend_requests, through: :inverted_friendships, source: :user
+  has_many :pending_friendships, -> { where confirmed: false}, class_name: 'Friendship', foreign_key: 'user_id', dependent: :destroy
+  has_many :pending_friends, through: :pending_friendships, source: :friend
+  has_many :confirmed_friendship, -> { where confirmed: true }, class_name: 'Friendship'
+
   def friends
     friends_array = friendships.map { |friendship| friendship.friend if friendship.confirmed }
     friends_array + inverse_friendships.map { |friendship| friendship.user if friendship.confirmed }
@@ -35,7 +41,4 @@ class User < ApplicationRecord
     friends.include?(user)
   end
 
-  # def self.created_users
-  #   where(email: :email)
-  # end
 end
