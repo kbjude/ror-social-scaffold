@@ -33,4 +33,15 @@ module UserHelper
             end
         end
     end
+
+    def friend_request_button
+        if current_user.friend?(@user)
+            button_to "You are already friends!", {}, { disabled: true }
+        elsif current_user_user.pending_friends.include?(@user)
+            content_tag(:p) do 
+                button_to 'Waiting for response to this request', {}, { disabled: true }
+            end
+        elsif current_user.friend_request.include?(@user)
+            content_tag(:div, class: 'friend-request') do
+                concat(button_to('Confirm Request', confirm_user_friendship_path))
 end
