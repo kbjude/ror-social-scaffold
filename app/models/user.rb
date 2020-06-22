@@ -24,22 +24,29 @@ class User < ApplicationRecord
     friends_array.compact
   end
 
+  def decline(user)
+    inverse_friendships.where(user_id: user.id).first.destroy
+  end
+
   def pending_friends
     friendships.map { |friendship| friendship.friend unless friendship.confirmed }.compact
   end
 
-  def friend_requests(user)
-    inverse_friendships.map { |friendship| friendship.user unless friendship.confirmed }.compact
-  end
-
-  def confirm_friend(user)
+  def confirm(user)
     friendship = inverse_friendships.find { |friendship| friendship.user == user }
     friendship.confirmed = true
     friendship.save
   end
 
+  def send_request(user)
+    if !pending_friends.include?(user)
+      friendships.create(friend_id: user.id, confirmed: false)
+    end
+  end
+
   def friend?(user)
     friends.include?(user)
   end
+
 
 end

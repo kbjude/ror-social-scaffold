@@ -2,7 +2,7 @@ class FriendshipsController < ApplicationController
     def create
         @user = current_user
         @possible_friend = User.find(params[:user_id])
-        @user.friend_requests(@possible_friend)
+        @user.send_request(@possible_friend)
         redirect_back(fallback_location: :back)
     end
 
