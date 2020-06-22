@@ -1,4 +1,4 @@
-module UserHelper
+module UsersHelper
     def friendship_move
         if current_user !=@user
             request_button
@@ -10,9 +10,9 @@ module UserHelper
                     end)
                     concat(tag(:br))
                     concat(tag(:br))
-                    @friend_request.each do |f|
+                    @friend_request.each do |request|
                         concat(content_tag(:strong) do 
-                            link_to f.name.capitalize, user(f), class: 'friend-link'
+                            link_to request.name.capitalize, user(request), class: 'friend-link'
                         end)
                     end
                 end)
@@ -36,11 +36,11 @@ module UserHelper
     def friend_request_button
         if current_user.friend?(@user)
             button_to "You are already friends!", {}, { disabled: true }
-        elsif current_user_user.pending_friends.include?(@user)
+        elsif current_user.pending_friends.include?(@user)
             content_tag(:p) do 
                 button_to 'Waiting for response to this request', {}, { disabled: true }
             end
-        elsif current_user.friend_request.include?(@user)
+        elsif current_user.friend_requests.include?(@user)
             content_tag(:div, class: 'friend-request') do
                 concat(button_to('Confirm Request', confirm_user_friendship_path(id: current_user, user_id: @user)))
                 concat(button_to('Decline Request', decline_user_friendship_path(id: current_user, user_id: @user)))
@@ -49,7 +49,7 @@ module UserHelper
             button_to 'send Request', user_friendships_path(@user)
         end
     end
-    def index_users
+    def users_on_home
         @users.map do |user|
             @user = user
             content_tag(:li) do
