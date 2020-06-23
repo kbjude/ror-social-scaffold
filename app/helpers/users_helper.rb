@@ -10,9 +10,9 @@ module UsersHelper
           end)
           concat(tag(:br))
           concat(tag(:br))
-          @friend_request.each do |request|
+          @friend_requests.each do |request|
             concat(content_tag(:strong) do
-              link_to request.name.capitalize, user(request), class: 'friend-link'
+              link_to request.name.capitalize, user_path(request), class: 'friend-link'
             end)
           end
         end)
@@ -23,7 +23,7 @@ module UsersHelper
           concat(tag(:br))
           concat(tag(:br))
           concat(content_tag(:ul) do
-            @friend.each do |f|
+            @user_friends.each do |f|
               concat(content_tag(:li) do
                        link_to f.name, user_path(f)
                      end)
