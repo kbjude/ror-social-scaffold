@@ -6,4 +6,5 @@ RSpec.describe Friendship, type: :model do
     expect(friendship.macro).to eq(:belongs_to)
   end
 
+i,s
 end
