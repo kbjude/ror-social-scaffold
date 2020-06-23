@@ -13,12 +13,5 @@ RSpec.describe User, type: :model do
       user.friendships.create(user_id: user.id, friend_id: user2.id, confirmed: true)
       expect(user.friends.last).to eql(user2)
     end
-    # it 'User is redirected to the index page' do
-    #   visit 'users/new'
-    #   fill_in 'user_email', :with => "user.kbju@gmail.com"
-    #   fill_in 'user_password', :with => "user.jude"
-    #   click_button 'Log in'
-    #   expect(page).to have_content('Stay in touch')
-    # end
   end
 end
