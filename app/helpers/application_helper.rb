@@ -15,4 +15,8 @@ module ApplicationHelper
       link_to('Like!', post_likes_path(post_id: post.id), method: :post)
     end
   end
+
+  # def time_ago_in_words(time)
+  #   Time.now - time
+  # end
 end
