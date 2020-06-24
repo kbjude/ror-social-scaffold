@@ -8,4 +8,4 @@ RSpec.describe Friendship, type: :model do
     end
   end
 end
-The lines
+
