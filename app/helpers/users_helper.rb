@@ -1,7 +1,7 @@
 module UsersHelper
   def friendship_move
     if current_user != @user
-      request_button
+      friend_request_button
     elsif current_user
       content_tag(:div, class: 'friendship-box') do
         concat(content_tag(:div, class: 'pending-requests') do
@@ -36,17 +36,17 @@ module UsersHelper
 
   def friend_request_button
     if current_user.friend?(@user)
-      button_to 'You are already friends!', {}, { disabled: true }
+      button_to 'You are friends!', {}, { disabled: true }
     elsif current_user.pending_friends.include?(@user)
       content_tag(:p) do
-        button_to 'Waiting for response to this request', {}, { disabled: true }
+        button_to 'Awaits a response', {}, { disabled: true }
       end
     elsif current_user.friend_requests.include?(@user)
       content_tag(:div, class: 'friend-request') do
         concat(button_to('Confirm Request', confirm_user_friendship_path(id: current_user, user_id: @user)))
         concat(button_to('Decline Request', decline_user_friendship_path(id: current_user, user_id: @user)))
       end
-    else
+    else 
       button_to 'send Request', user_friendships_path(@user)
     end
   end
