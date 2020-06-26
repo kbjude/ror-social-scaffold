@@ -24,24 +24,11 @@ class User < ApplicationRecord
   has_many :confirmed_friendships, -> { where confirmed: true }, class_name: 'Friendship'
   has_many :friends, through: :confirmed_friendships
 
-  # def friends
-  #   friends_array = friendships.map { |friendship| friendship.friend if friendship.confirmed }
-  #   friends_array + inverse_friendships.map { |friendship| friendship.user if friendship.confirmed }
-  #   friends_array.compact
-  # end
-
   def decline(user)
     inverse_friendships.where(user_id: user.id).first.destroy
   end
 
-  # def pending_friends
-  #   friendships.map { |friendship| friendship.friend unless friendship.confirmed }.compact
-  # end
-
   def confirm(user)
-    # friendship = inverse_friendships.find { |friendship| friendship.user == user }
-    # friendship.confirmed = true
-    # friendship.save
     friendship = inverse_friendships.find do |friend|
       friend.user == user
     end
