@@ -46,7 +46,7 @@ module UsersHelper
         concat(button_to('Confirm Request', confirm_user_friendship_path(id: current_user, user_id: @user)))
         concat(button_to('Decline Request', decline_user_friendship_path(id: current_user, user_id: @user)))
       end
-    else 
+    else
       button_to 'send Request', user_friendships_path(@user)
     end
   end
