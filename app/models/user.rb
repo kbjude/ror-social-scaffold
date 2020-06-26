@@ -57,4 +57,11 @@ class User < ApplicationRecord
   def friend?(user)
     friends.include?(user)
   end
+
+  def friends_posts
+    if current_user.friend.include?(@user)
+      @user.
+    end
+  end
+end
 end
