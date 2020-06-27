@@ -33,8 +33,7 @@ class User < ApplicationRecord
       friend.user == user
     end
     friendship.confirmed = true
-    saved = friendship.save
-    
+    friendship.save
   end
 
   def send_request(user)

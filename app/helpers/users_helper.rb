@@ -43,7 +43,7 @@ module UsersHelper
       end
     elsif current_user.friend_requests.include?(@user)
       content_tag(:div, class: 'friend-request') do
-        request = concat(button_to('Confirm Request', confirm_user_friendship_path(id: current_user, user_id: @user)))
+        concat(button_to('Confirm Request', confirm_user_friendship_path(id: current_user, user_id: @user)))
         concat(button_to('Decline Request', decline_user_friendship_path(id: current_user, user_id: @user)))
       end
     elsif !current_user.friend_requests.include?(@user)
