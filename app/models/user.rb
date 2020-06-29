@@ -23,7 +23,9 @@ class User < ApplicationRecord
   has_many :pending_friends, through: :pending_friendships, source: :friend
   has_many :confirmed_friendships, -> { where confirmed: true }, class_name: 'Friendship'
   has_many :friends, through: :confirmed_friendships
-  has_many :confirmed_inverse_friendships, -> { where confirmed: true }, class_name: 'Friendship', foreign_key: 'friend_id'
+  has_many :confirmed_inverse_friendships,
+           -> { where confirmed: true },
+           class_name: 'Friendship', foreign_key: 'friend_id'
 
   def decline(user)
     inverse_friendships.where(user_id: user.id).first.destroy
@@ -43,7 +45,6 @@ class User < ApplicationRecord
 
   def friend?(user)
     friends.include?(user) || confirmed_inverse_friendships.map(&:user_id).include?(user.id)
-
   end
 
   def friends_posts

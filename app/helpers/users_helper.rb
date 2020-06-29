@@ -44,7 +44,7 @@ module UsersHelper
     elsif current_user.friend_requests.include?(user)
       content_tag(:div, class: 'friend-request') do
         if concat(button_to('Confirm Request', confirm_user_friendship_path(id: current_user, user_id: user)))
-          button_to 'send Request', {}, { disable: true}
+          button_to 'send Request', {}, { disable: true }
         end
         concat(button_to('Decline Request', decline_user_friendship_path(id: current_user, user_id: user)))
       end
@@ -66,7 +66,7 @@ module UsersHelper
           concat(content_tag(:span, class: 'profile-link') do
             concat(friend_request_button(user))
           end)
-                elsif confirm_user_friendship_path(id: current_user, user_id: user)
+        elsif confirm_user_friendship_path(id: current_user, user_id: user)
           button_to 'send Request', {}, { disable: true }
         end
       end
