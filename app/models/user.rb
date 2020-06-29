@@ -22,10 +22,18 @@ class User < ApplicationRecord
            foreign_key: 'user_id', dependent: :destroy
   has_many :pending_friends, through: :pending_friendships, source: :friend
   has_many :confirmed_friendships, -> { where confirmed: true }, class_name: 'Friendship'
-  has_many :friends, through: :confirmed_friendships
   has_many :confirmed_inverse_friendships,
            -> { where confirmed: true },
            class_name: 'Friendship', foreign_key: 'friend_id'
+  
+def friends
+friends_array = friendships.map do |friendship|
+  friendship.friend if friendship.confirmed
+end + inverse_friendships.map do |friendship|
+        friendship.user if friendship.confirmed
+      end
+friends_array.compact
+end
 
   def decline(user)
     inverse_friendships.where(user_id: user.id).first.destroy
@@ -44,7 +52,7 @@ class User < ApplicationRecord
   end
 
   def friend?(user)
-    friends.include?(user) || confirmed_inverse_friendships.map(&:user_id).include?(user.id)
+    friends.include?(user)
   end
 
   def friends_posts
