@@ -60,7 +60,7 @@ Open `http://localhost:3000/` in your browser.
 ### Deployment
 
 TBA
-[Live version](https://afternoon-scrubland-54988.herokuapp.com/users)
+[Live version](https://agile-hamlet-27171.herokuapp.com/users/sign_in)
 
 ## Authors
 
